@@ -20,12 +20,13 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class User extends UpdatedAt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long userId; // user_id
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2)
     private SignInProviderType providerType;
 
     @Column(nullable = false, length = 30)
@@ -40,7 +41,7 @@ public class User extends UpdatedAt {
     @Column(length = 50)
     private String pic;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<UserRole> userRoles = new ArrayList<>();
 
 }
